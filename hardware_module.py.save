@@ -49,18 +49,17 @@ def Carnumber_Detect(image_file):
                 matchobj=regex.search(carnum[3:7])
                 if(matchobj != None):
                     #result = requests.post('http://35.200.117.1:8080/control.jsp?type=reservation&action=select&from=raspberry&carNumber='+carnum)
-                    regex=re.compile('[^0-9]')
+                    regex=re.compile('[0xac00-0xd7a3]')
                     matchobj=regex.search(carnum[2:3])
                     if(matchobj != None):
-                        result = requests.post('http://35.200.117.1:8080/control.jsp?type=notification&action=carEntry&carNumber='+carnum)
+                        result = requests.post('http://35.200.117.1:8080/rasptest.jsp?param='+carnum)
                         print(result.text)
                         return True
-    
 
 ###########PiCamera Capture Function##########
 def Camera_Capture():
 	cam.start_preview()
-	time.sleep(1)
+	time.sleep(3)
 	cam.stop_preview()
 	cam.capture('/home/pi/Drive_Thru_ATM/picture/1.jpg')
 
